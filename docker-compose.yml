@@ -1,0 +1,24 @@
+version: '3.3'
+
+services:
+  database:
+    container_name: cars-mysql
+    image: mysql:8.0
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: secret
+        MYSQL_DATABASE: cars
+        MYSQL_USER: cars
+        MYSQL_PASSWORD: secret
+    ports:
+      - '3306:3306'
+  php:
+    container_name: cars-php
+    image: php:8.1-fpm-alpine
+    restart: always
+    build:
+      context: ./php
+    ports:
+      - '9000:9000'
+    volumes:
+      - ./app:/var/www/parser
