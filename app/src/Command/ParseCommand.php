@@ -143,10 +143,10 @@ class ParseCommand extends Command
                 $output->writeln("Successfully executed date: $dateFrom - $dateTo on page: $page");
                 $page++;
             }
-            echo 'DATABASE UPDATE' . PHP_EOL;
-            $this->entityManager->flush();
-            echo 'DATABASE UPDATE END' . PHP_EOL;
         }
+        echo 'DATABASE UPDATE' . PHP_EOL;
+        $this->entityManager->flush();
+        echo 'DATABASE UPDATE END' . PHP_EOL;
         $this->saveElementToFile();
         $email = (new Email())
             ->from('tarnavskij2002@gmail.com')
