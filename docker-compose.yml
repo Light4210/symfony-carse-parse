@@ -10,6 +10,9 @@ services:
         MYSQL_DATABASE: cars
         MYSQL_USER: cars
         MYSQL_PASSWORD: secret
+        MYSQL_MAX_EXECUTION_TIME: 0
+        MYSQL_MAX_ALLOWED_PACKET: 1G
+        MYSQL_WAIT_TIMEOUT: 31536000
     ports:
       - '3306:3306'
   php:
