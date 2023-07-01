@@ -54,6 +54,7 @@ class ParseCommand extends Command
         $cookies['ASP.NET_SessionId'] = 'suy0oe455o5lb0452oq0zjmz';
         $cookies = $this->formCookie($cookies);
         echo 'START' . PHP_EOL;
+        $i = 0;
         while ($todayTimestamp > strtotime($dateTo)) {
             $dateFrom = date('Y-m-d', strtotime("+1 months", strtotime($dateFrom)));
             $dateTo = date('Y-m-d', strtotime("+1 months", strtotime($dateTo)));
@@ -136,9 +137,17 @@ class ParseCommand extends Command
                     $crawler = new Crawler($pageHtml);
                     $pages = $crawler->filterXPath("//*[contains(@id, 'ctl00_pagecontext_ctl00_pager_plPager')]")->text();
                     $max = explode(' ', $pages)[2];
+                    $i++;
                     $element = new Element($code, $name, $price, $availability, $desc, $quantity, $currency, $additional);
                     $this->entityManager->persist($element);
                 }
+                if ($i >= 5000) {
+                    echo 'DATABASE UPDATE' . PHP_EOL;
+                    $this->entityManager->flush();
+                    echo 'DATABASE UPDATE END' . PHP_EOL;
+                    $i = 0;
+                }
+
                 echo 'END CRAWL DATA FROM HTML' . PHP_EOL;
                 $output->writeln("Successfully executed date: $dateFrom - $dateTo on page: $page");
                 $page++;

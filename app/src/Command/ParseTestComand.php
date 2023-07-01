@@ -52,9 +52,10 @@ class ParseTestComand extends Command
         $cookies['ASP.NET_SessionId'] = 'suy0oe455o5lb0452oq0zjmz';
         $cookies = $this->formCookie($cookies);
         echo 'START' . PHP_EOL;
+        $longVar = ' ad wad awd KALjf lAWg; ajwga[jw `gjAPG;lj WP:LGkjaP:LKWJg ;,ALKJGW;lkaJGW;lkAJWGPk;laPJGwA:WKLgAOJGWlJAKBgn:WKLJGpoAHWGoAHWgjA';
         for ($i = 0; $i < 50000; $i++){
-            $additional = new Additional('test', 4);
-            $element = new Element('test', 'test', 44, true, 'test', 4, 'test', 'test');
+            $additional = new Additional($longVar, 4);
+            $element = new Element($longVar, $longVar, 44, true, $longVar, 4, 'pl', $longVar);
             $this->entityManager->persist($element);
             $this->entityManager->persist($additional);
             echo $i . PHP_EOL;
