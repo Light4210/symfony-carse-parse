@@ -55,8 +55,6 @@ class ParseCommand extends Command
         $cookies = $this->formCookie($cookies);
         echo 'START' . PHP_EOL;
         $i = 0;
-        $connection = $this->entityManager->getConnection();
-        $connection->close();
         while ($todayTimestamp > strtotime($dateTo)) {
             $dateFrom = date('Y-m-d', strtotime("+1 months", strtotime($dateFrom)));
             $dateTo = date('Y-m-d', strtotime("+1 months", strtotime($dateTo)));
@@ -156,7 +154,6 @@ class ParseCommand extends Command
                 $page++;
             }
         }
-        $connection->connect();
         echo 'DATABASE UPDATE' . PHP_EOL;
         $this->entityManager->flush();
         echo 'DATABASE UPDATE END' . PHP_EOL;
