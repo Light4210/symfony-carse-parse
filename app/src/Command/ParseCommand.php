@@ -235,18 +235,62 @@ class ParseCommand extends Command
         foreach ($records as $row) {
             $row['availability'] = $row['availability'] ? 'Доступний' : 'Не доступний';
             $row['quantity'] = $row['quantity'] ?? 'Не відомо скільки є';
-            $sheet->setCellValue("A" . $i, $row['elementId']);
-            $sheet->setCellValue("B" . $i, $row['availability']);
-            $sheet->setCellValue("C" . $i, $row['description']);
-            $sheet->setCellValue("D" . $i, $row['price'] . ' ' . $row['currency']);
-            $sheet->setCellValue("E" . $i, $row['name']);
-            $sheet->setCellValue("F" . $i, $row['photoUrl']);
-            $sheet->setCellValue("G" . $i, $row['additional']);
-            $sheet->setCellValue("H" . $i, $row['quantity']);
+            $row['description'] = str_replace('=', '',$row['description']);
+            foreach ($row as $key => $el){
+                $row[$key] = str_replace('=', '',$row[$key]);
+            }
+            try {
+                $sheet->setCellValue("A" . $i, $row['elementId']);
+            } catch (\Exception){
+                $sheet->setCellValue("A" . $i, 'cannot write name');
+            }
+
+            try {
+                $sheet->setCellValue("B" . $i, $row['availability']);
+            } catch (\Exception){
+                $sheet->setCellValue("B" . $i, 'cannot write name');
+            }
+
+
+            try {
+                $sheet->setCellValue("C" . $i, $row['description']);
+            } catch (\Exception){
+                $sheet->setCellValue("C" . $i, 'cannot write name');
+            }
+
+            try {
+                $sheet->setCellValue("D" . $i, $row['price'] . ' ' . $row['currency']);
+            } catch (\Exception){
+                $sheet->setCellValue("D" . $i, 'cannot write name');
+            }
+
+            try {
+                $sheet->setCellValue("E" . $i, $row['name']);
+            } catch (\Exception){
+                $sheet->setCellValue("E" . $i, 'cannot write name');
+            }
+
+            try {
+                $sheet->setCellValue("F" . $i, $row['photoUrl']);
+            } catch (\Exception){
+                $sheet->setCellValue("F" . $i, 'cannot write name');
+            }
+
+            try {
+                $sheet->setCellValue("G" . $i, $row['additional']);
+            } catch (\Exception){
+                $sheet->setCellValue("G" . $i, 'cannot write name');
+            }
+
+            try {
+                $sheet->setCellValue("H" . $i, $row['quantity']);
+            } catch (\Exception){
+                $sheet->setCellValue("H" . $i, 'cannot write name');
+            }
             $i++;
         }
         $writer = new Xlsx($spreadsheet);
-        $writer->save($this->params->get('kernel.project_dir') . '/public/' . "elements.xlsx");
+        $writer->save($this->params->get('kernel.project_dir') . '/public/' . "default.xlsx");
         echo "OK";
     }
 }
