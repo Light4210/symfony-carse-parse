@@ -47,8 +47,7 @@ class ElementRepository extends ServiceEntityRepository
 
         $qb->select('e.elementId, e.name, e.price, e.availability, e.description, e.additional, e.quantity, e.currency')
             ->addSelect('a.photoUrl')
-            ->leftJoin(Additional::class, 'a', Join::WITH, 'e.elementId = a.element_id');
-
+            ->leftJoin(Additional::class, 'a', Join::WITH, 'e.elementId = a.element_id')->groupBy('e.elementId');
         $query = $qb->getQuery();
 
         $result = $query->getResult();
