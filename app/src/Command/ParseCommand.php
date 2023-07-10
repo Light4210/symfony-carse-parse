@@ -111,7 +111,7 @@ class ParseCommand extends Command
                 $result = $crawler->filterXPath("//*[contains(@class, 'producername_')]");
                 foreach ($result as $id => $block) {
                     $crawler = new Crawler($block);
-                    $availability = $crawler->filterXPath(".//*[contains(@class, 'branchcurrent')]")->innerText();
+                    $availability = $crawler->filterXPath(".//*[contains(@class, 'aviability')]")->innerText();
                     $code = $crawler->filterXPath(".//*[@class='code']")->innerText();
                     $name = $crawler->filterXPath(".//*[contains(@class, 'articletitle')]")->innerText();
                     $desc = str_replace($name, '', $crawler->filterXPath(".//td[@class = 'name']")->text());
